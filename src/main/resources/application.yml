@@ -1,0 +1,29 @@
+spring:
+  application:
+    # 应用程序的名称必须直接映射到Spring Cloud配置服务器中的config目录的名称
+    name: authenticationservice
+  profiles:
+    active: default
+  config:
+    # 指定Spring Cloud Config服务器的位置
+    import: "optional:configserver:http://configurationservice:8888"
+eureka:
+  instance:
+    # 注册服务的IP而不是服务名称
+    prefer-ip-address: true
+  client:
+    # 向Eureka注册服务
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      # Eureka服务的位置
+      defaultZone: http://eurekaservice:8761/eureka/
+server:
+  port: 8901
+  servlet:
+    context-path: /auth
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
